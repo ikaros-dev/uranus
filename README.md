@@ -1,2 +1,2 @@
 # uranus-android
-Ikaos video player  uranus android repo.
+Ikaos media player uranus android repo.
