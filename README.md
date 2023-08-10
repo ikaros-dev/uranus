@@ -1,2 +1,2 @@
 # uranus
-Ikaos media player.
+Ikaros media player.
