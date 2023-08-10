@@ -1,5 +1,6 @@
 package run.ikaros.uranus;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -10,6 +11,7 @@ import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
+import com.google.android.exoplayer2.ui.SubtitleView;
 
 import java.util.Objects;
 
@@ -25,7 +27,7 @@ public class ExoPlayerActivity extends AppCompatActivity {
         ExoPlayerView playerView = findViewById(R.id.exoPlayerVideoView);
         exoPlayer = new ExoPlayer.Builder(ExoPlayerActivity.this).build();
         playerView.setPlayer(exoPlayer);
-        MediaItem mediaItem = MediaItem.fromUri(VideoTmp.MULTI_TRACKS_H264_URL);
+        MediaItem mediaItem = MediaItem.fromUri(VideoTmp.EMBED_ASS_H265_URL);
         exoPlayer.setMediaItem(mediaItem);
         exoPlayer.prepare();
         playerView.setControllerHideOnTouch(false);
@@ -39,6 +41,8 @@ public class ExoPlayerActivity extends AppCompatActivity {
         playerView.setShowSubtitleButton(true);
         playerView.setShowMultiWindowTimeBar(true);
         playerView.setShowVrButton(false);
+
+        SubtitleView subtitleView = playerView.getSubtitleView();
     }
 
     @Override
