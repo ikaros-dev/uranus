@@ -1,14 +1,15 @@
 package run.ikaros.uranus;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.provider.CalendarContract;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import java.util.Objects;
 
@@ -21,18 +22,30 @@ public class ExoPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exo_player);
 
-        PlayerView playerView = findViewById(R.id.exoPlayerVideoView);
+        ExoPlayerView playerView = findViewById(R.id.exoPlayerVideoView);
         exoPlayer = new ExoPlayer.Builder(ExoPlayerActivity.this).build();
         playerView.setPlayer(exoPlayer);
-        MediaItem mediaItem = MediaItem.fromUri(VideoTmp.H265_URL);
+        MediaItem mediaItem = MediaItem.fromUri(VideoTmp.MULTI_TRACKS_H264_URL);
         exoPlayer.setMediaItem(mediaItem);
         exoPlayer.prepare();
+        playerView.setControllerHideOnTouch(false);
+        playerView.setShowBuffering(StyledPlayerView.SHOW_BUFFERING_WHEN_PLAYING);
+        playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+        playerView.setBackgroundColor(Color.BLACK);
+        playerView.setKeepContentOnPlayerReset(true);
+        playerView.setShowRewindButton(true);
+        playerView.setShowFastForwardButton(true);
+        playerView.setShowPreviousButton(true);
+        playerView.setShowSubtitleButton(true);
+        playerView.setShowMultiWindowTimeBar(true);
+        playerView.setShowVrButton(false);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(Objects.nonNull(exoPlayer)) {
+        if (Objects.nonNull(exoPlayer)) {
+
             exoPlayer.release();
         }
     }
