@@ -40,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         ffmpegBtn.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, FfmpegInfoActivity.class)));
 
+        Button urPlayerBtn = findViewById(R.id.urPlayerBtn);
+        urPlayerBtn.setText("uranus player");
+        urPlayerBtn.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, UranusPlayerActivity.class)));
+
     }
 
     /**

@@ -7,6 +7,11 @@ import android.widget.TextView;
 
 public class FfmpegInfoActivity extends AppCompatActivity {
 
+    // Used to load the 'uranus' library on application startup.
+    static {
+        System.loadLibrary("uranus");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

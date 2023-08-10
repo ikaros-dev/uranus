@@ -43,3 +43,15 @@ Java_run_ikaros_uranus_FfmpegInfoActivity_getFfmpegVersion(JNIEnv *env, jclass c
     __android_log_print(ANDROID_LOG_INFO,"Uranus","GetFFmpegVersion\\n%s", strBuffer);
     return env->NewStringUTF(strBuffer);
 }
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_run_ikaros_uranus_UranusPlayer_delegatePrepare(JNIEnv *env, jobject thiz, jstring source) {
+    // TODO: implement delegatePrepare()
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_run_ikaros_uranus_UranusPlayer_delegateStart(JNIEnv *env, jobject thiz) {
+    // TODO: implement delegateStart()
+}
