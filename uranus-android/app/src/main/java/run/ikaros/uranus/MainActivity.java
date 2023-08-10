@@ -2,7 +2,10 @@ package run.ikaros.uranus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import run.ikaros.uranus.databinding.ActivityMainBinding;
@@ -26,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
         // Example of a call to a native method
         TextView tv = binding.sampleText;
         tv.setText(stringFromJNI());
+
+        Button button = findViewById(R.id.button);
+        button.setText("exoPlayer");
+        button.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, ExoPlayerActivity.class)));
     }
 
     /**
