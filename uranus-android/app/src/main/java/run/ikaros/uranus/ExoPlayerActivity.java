@@ -14,18 +14,26 @@ import java.util.Objects;
 
 public class ExoPlayerActivity extends AppCompatActivity {
 
+    private ExoPlayer exoPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exo_player);
 
         PlayerView playerView = findViewById(R.id.exoPlayerVideoView);
-        ExoPlayer player = new ExoPlayer.Builder(ExoPlayerActivity.this).build();
-        playerView.setPlayer(player);
+        exoPlayer = new ExoPlayer.Builder(ExoPlayerActivity.this).build();
+        playerView.setPlayer(exoPlayer);
         MediaItem mediaItem = MediaItem.fromUri(VideoTmp.H265_URL);
-        player.setMediaItem(mediaItem);
-        player.prepare();
+        exoPlayer.setMediaItem(mediaItem);
+        exoPlayer.prepare();
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(Objects.nonNull(exoPlayer)) {
+            exoPlayer.release();
+        }
+    }
 }
