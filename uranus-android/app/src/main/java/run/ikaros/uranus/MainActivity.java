@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         button.setText("exoPlayer");
         button.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, ExoPlayerActivity.class)));
+
+        Button ffmpegBtn = findViewById(R.id.ffmpegBtn);
+        ffmpegBtn.setText("to get ffmpeg info");
+        ffmpegBtn.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, FfmpegInfoActivity.class)));
+
     }
 
     /**
