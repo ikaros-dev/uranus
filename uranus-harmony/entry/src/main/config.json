@@ -1,0 +1,49 @@
+{
+  "app": {
+    "bundleName": "run.ikaros.uranus",
+    "vendor": "example",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {
+  },
+  "module": {
+    "package": "run.ikaros.uranus",
+    "name": ".MyApplication",
+    "mainAbility": "run.ikaros.uranus.MainAbility",
+    "deviceType": [
+      "phone",
+      "car"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "name": "run.ikaros.uranus.MainAbility",
+        "description": "$string:mainability_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_MainAbility",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "visible": true,
+        "skills": [
+          {
+            "actions": [
+              "action.system.home"
+            ],
+            "entities": [
+              "entity.system.home"
+            ]
+          }
+        ],
+        "type": "page"
+      }
+    ]
+  }
+}
