@@ -2,6 +2,8 @@ package run.ikaros.uranus.player;
 
 import android.util.Log;
 
+import com.google.android.exoplayer2.Player;
+
 import java.util.List;
 
 import run.ikaros.uranus.listener.PlayerListener;

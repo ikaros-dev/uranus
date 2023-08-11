@@ -130,6 +130,8 @@ void UranusFFmpeg::decodeFFmpegThread() {
                     video->defaultDelayTime = 1.0 / fps;//秒
                 }
             }
+        } else if(pFormatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_SUBTITLE) {
+            
         }
     }
     if (audio != NULL) {

@@ -12,28 +12,23 @@ UranusVideo::~UranusVideo() {
 
 }
 
-void * playVideo(void *data)
-{
+void *playVideo(void *data) {
 //    C函数 1   C++函数2
     UranusVideo *video = static_cast<UranusVideo *>(data);
 //    死循环轮训
-    while(video->playstatus != NULL && !video->playstatus->exit)
-    {
+    while (video->playstatus != NULL && !video->playstatus->exit) {
 //         解码 seek   puase   队列没有数据
-        if(video->playstatus->seek)
-        {
+        if (video->playstatus->seek) {
             av_usleep(1000 * 100);
             continue;
         }
-        if(video->playstatus->pause)
-        {
+        if (video->playstatus->pause) {
             av_usleep(1000 * 100);
             continue;
         }
         if (video->queue->getQueueSize() == 0) {
 //            网络不佳  请慢慢等待  回调应用层
-            if(!video->playstatus->load)
-            {
+            if (!video->playstatus->load) {
                 video->playstatus->load = true;
                 video->wlCallJava->onCallLoad(CHILD_THREAD, true);
                 av_usleep(1000 * 100);
@@ -43,8 +38,7 @@ void * playVideo(void *data)
         }
 
         AVPacket *avPacket = av_packet_alloc();
-        if(video->queue->getAvPacket(avPacket) != 0)
-        {
+        if (video->queue->getAvPacket(avPacket) != 0) {
             av_packet_free(&avPacket);
             av_free(avPacket);
             avPacket = NULL;
@@ -53,8 +47,7 @@ void * playVideo(void *data)
 //        视频解码 比较耗时  多线程环境
         pthread_mutex_lock(&video->codecMutex);
 //解码操作
-        if(avcodec_send_packet(video->avCodecContext, avPacket) != 0)
-        {
+        if (avcodec_send_packet(video->avCodecContext, avPacket) != 0) {
 //            括号就失败了
             av_packet_free(&avPacket);
             av_free(avPacket);
@@ -64,8 +57,7 @@ void * playVideo(void *data)
         }
         AVFrame *avFrame = av_frame_alloc();
 
-        if(avcodec_receive_frame(video->avCodecContext, avFrame) != 0)
-        {
+        if (avcodec_receive_frame(video->avCodecContext, avFrame) != 0) {
 //          括号就失败了
             av_frame_free(&avFrame);
             av_free(avFrame);
@@ -77,8 +69,7 @@ void * playVideo(void *data)
             continue;
         }
 //        此时解码成功了  如果 之前是yuv420  ----》   opengl
-        if(avFrame->format == AV_PIX_FMT_YUV420P)
-        {
+        if (avFrame->format == AV_PIX_FMT_YUV420P) {
 //            压缩1  原始数据2
 //            avFrame->data[0];//y
 //            avFrame->data[1];//u
@@ -100,7 +91,7 @@ void * playVideo(void *data)
                     avFrame->data[1],
                     avFrame->data[2]);
             LOGI("当前视频是YUV420P格式");
-        }else{
+        } else {
             LOGI("当前视频不是YUV420P格式");
             AVFrame *pFrameYUV420P = av_frame_alloc();
             int num = av_image_get_buffer_size(
@@ -126,8 +117,7 @@ void * playVideo(void *data)
                     AV_PIX_FMT_YUV420P,
                     SWS_BICUBIC, NULL, NULL, NULL);
 
-            if(!sws_ctx)
-            {
+            if (!sws_ctx) {
                 av_frame_free(&pFrameYUV420P);
                 av_free(pFrameYUV420P);
                 av_free(buffer);
@@ -185,16 +175,14 @@ double UranusVideo::getFrameDiffTime(AVFrame *avFrame) {
 //    先获取视频时间戳  处理之后
 //    double pts = av_frame_get_best_effort_timestamp(avFrame);
     double pts = avFrame->pts;
-    if(pts == AV_NOPTS_VALUE)
-    {
+    if (pts == AV_NOPTS_VALUE) {
         pts = 0;
     }
 //     1.001*40ms
 //    pts=pts * time_base.num / time_base.den;
     pts *= av_q2d(time_base);
 
-    if(pts > 0)
-    {
+    if (pts > 0) {
         clock = pts;
     }
 

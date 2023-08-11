@@ -354,7 +354,6 @@ int UranusAudio::getSoundTouchData() {
 //        重新整理波形  sountouch
 //我们先取数据   pcm 的数据  就在  outbuffer
     while(playstatus != NULL && !playstatus->exit){
-        LOGE("------------------循环---------------------------finished %d",finished)
         out_buffer = NULL;
         if(finished){
             finished = false;
@@ -369,7 +368,6 @@ int UranusAudio::getSoundTouchData() {
                 soundTouch->putSamples(sampleBuffer, nb);
 //                接受一个新波 sampleBuffer
                 num=soundTouch->receiveSamples(sampleBuffer, data_size / 4);
-                LOGE("------------第一个num %d ",num);
             }else{
                 soundTouch->flush();
             }
@@ -381,19 +379,16 @@ int UranusAudio::getSoundTouchData() {
         } else{
             if(out_buffer == NULL){
                 num=soundTouch->receiveSamples(sampleBuffer, data_size / 4);
-                LOGE("------------第二个num %d ",num);
                 if(num == 0)
                 {
                     finished = true;
                     continue;
                 }
             }
-            LOGE("---------------- 结束1 -----------------------")
             return num;
         }
 
     }
-    LOGE("---------------- 结束2 -----------------------")
     return 0;
 }
 
