@@ -23,6 +23,7 @@ public class UranusPlayerActivity extends AppCompatActivity {
     private int position;
     private boolean seek = false;
     private UranusPlayer player;
+    private String videoUrl = VideoTmp.H264_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,18 @@ public class UranusPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onCurrentTime(int currentTime, int totalTime) {
-                runOnUiThread(() -> {
-                    seekBar.setProgress(currentTime* 100 / totalTime);
-                    tvTime.setText( secondsToDateFormat(currentTime)
-                            + "/" + secondsToDateFormat( totalTime));
-                });
+                if(!seek &&totalTime> 0)
+                {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            seekBar.setProgress(currentTime* 100 / totalTime);
+                            tvTime.setText( secondsToDateFormat(currentTime)
+                                    + "/" + secondsToDateFormat( totalTime));
+                        }
+                    });
+
+                }
             }
 
             @Override
@@ -133,7 +141,7 @@ public class UranusPlayerActivity extends AppCompatActivity {
                 player.start();
             }
         });
-        player.setSources(VideoTmp.H265_URL);
+        player.setSources(videoUrl);
         player.prepare();
     }
 
