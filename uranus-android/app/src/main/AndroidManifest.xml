@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Uranusandroid"
         tools:targetApi="31">
         <activity
-            android:name=".UranusPlayerActivity"
+            android:name=".player.UranusPlayerActivity"
             android:exported="false" />
         <activity
             android:name=".FfmpegInfoActivity"

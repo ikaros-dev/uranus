@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UranusPlayerActivity">
+    tools:context=".player.UranusPlayerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.opengl.GLSurfaceView
+        <run.ikaros.uranus.opengl.UranusGLSurfaceView
             android:id="@+id/gsSurfaceView"
             android:layout_width="match_parent"
             android:layout_height="248dp" />

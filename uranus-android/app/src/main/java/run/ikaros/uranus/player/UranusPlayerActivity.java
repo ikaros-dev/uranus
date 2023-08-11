@@ -1,29 +1,28 @@
-package run.ikaros.uranus;
+package run.ikaros.uranus.player;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import run.ikaros.uranus.R;
+import run.ikaros.uranus.VideoTmp;
 import run.ikaros.uranus.listener.PlayerListener;
 import run.ikaros.uranus.listener.PlayerPreparedListener;
+import run.ikaros.uranus.opengl.UranusGLSurfaceView;
 
 public class UranusPlayerActivity extends AppCompatActivity {
 
     private TextView tvTime;
-    private GLSurfaceView glSurfaceView;
+    private UranusGLSurfaceView glSurfaceView;
     private SeekBar seekBar;
     private int position;
     private boolean seek = false;
     private UranusPlayer player;
-    private String videoUrl = VideoTmp.H264_URL;
+    private String videoUrl = VideoTmp.H265_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
